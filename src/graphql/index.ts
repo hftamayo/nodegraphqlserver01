@@ -1,27 +1,19 @@
-export const typeDefs = `
-type User {
-    id: ID!
-    username: String
-    email: String
-}
+import { readFileSync } from "fs";
+import { usersResolver } from "./resolvers/user.resolver";
 
-type Query {
-    user(id: ID!): User
-    users: [User]
-}
-type Mutation {
-    createUser(username: String!, email: String!): User!
-    updateUser(id: ID!, username: String, email: String): User!
-    deleteUser(id: ID!): User!
-}
+const userTypes = readFileSync("src/graphql/user/user.graphql", "utf-8");
+const postTypes = readFileSync("src/graphql/post/post.graphql", "utf-8");
+
+export const typeDefs = `
+${userTypes}
+${postTypes}
 `;
 
 export const resolvers = {
   Query: {
-    users() {
-      return [{ id: 1, username: "test", email: "veloz@ok.com" }];
-    },
-    user() {},
+    ...usersResolver.Query,
   },
-  Mutation: {},
+  Mutation: {
+    ...usersResolver.Mutation,
+  },
 };
