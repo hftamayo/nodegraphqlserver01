@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from "graphql";
-import { getUser, getUsers } from "../../services/user.service";
+import { getUser, getUsers } from "../services/user.service";
 
 export const usersResolver = {
   Query: {
@@ -9,8 +9,7 @@ export const usersResolver = {
       context: any,
       info: GraphQLResolveInfo
     ) {
-      //return await getUsers({ info });
-      return [];
+      return await getUsers({ info });
     },
     async user(
       _: any,
@@ -18,8 +17,7 @@ export const usersResolver = {
       context: any,
       info: GraphQLResolveInfo
     ) {
-      //return await getUser({ id: args.id, info });
-      return [];
+      return await getUser({ id: args.id, info });
     },
   },
   Mutation: {
