@@ -10,27 +10,46 @@ interface GetUserArgs extends GetUsersArgs {
   id: string;
 }
 
+interface UserInput {
+  name?: string;
+  email?: string;
+  password?: string;
+}
+
 const prisma = new PrismaClient();
 
 export const getUsers = async ({ info }: GetUsersArgs) => {
   const extractedSelections = extractSelection(info);
-  const postIncluded = extractedSelections.includes("posts");
+  const todoIncluded = extractedSelections.includes("todos");
 
-  if (postIncluded) {
-    return await prisma.user.findMany({ include: { posts: true } });
+  if (todoIncluded) {
+    return await prisma.user.findMany({ include: { todos: true } });
   }
 
-    return await prisma.user.findMany();
+  return await prisma.user.findMany();
 };
 
 export const getUser = async ({ id, info }: GetUserArgs) => {
   const extractedSelections = extractSelection(info);
-  const postIncluded = extractedSelections.includes("posts");
+  const todoIncluded = extractedSelections.includes("todos");
 
-  if (postIncluded) {
-    return await prisma.user.findUnique({ where: { id }, include: { posts: true } });
+  if (todoIncluded) {
+    return await prisma.user.findUnique({
+      where: { id },
+      include: { todos: true },
+    });
   }
 
   return await prisma.user.findUnique({ where: { id } });
 };
 
+export const createUser = async ({ name, email, password }: UserInput) => {
+  const createdUser = await prisma.user.create({
+    data: {
+      name,
+      email,
+      password,
+    },
+  });
+  return createdUser;
+};
