@@ -3,7 +3,7 @@ type Todo {
   title: String!
   description: String!
   completed: Boolean!
-  user: String!
+  user: User!
   createdAt: String!
   updatedAt: String!
 }
@@ -16,7 +16,7 @@ type Query {
 input TodoInput {
   title: String!
   description: String!
-  user: String!
+  userId: ID!
   completed: Boolean!
 }
 
@@ -25,4 +25,3 @@ type Mutation {
   updateTodo(id: ID!, todoInput: TodoInput!): Todo!
   deleteTodo(id: ID!): Todo!
 }
-```
