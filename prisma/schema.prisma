@@ -17,6 +17,7 @@ model User {
     age         Int
     createdAt   DateTime @default(now())
     updatedAt   DateTime @default(now())
+    todos       Todo[]
 }
 
 model Todo {
