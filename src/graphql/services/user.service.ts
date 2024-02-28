@@ -43,13 +43,14 @@ export const getUser = async ({ id, info }: GetUserArgs) => {
   return await prisma.user.findUnique({ where: { id } });
 };
 
-export const createUser = async ({ name, email, password }: UserInput) => {
+export const createUser = async ({ name = "", email = "", password = "" }: UserInput) => {
   console.log({name, email, password});
   const createdUser = await prisma.user.create({
     data: {
       name,
       email,
       password,
+      age: 0, // Add the 'age' property with a default value
     },
   });
   return createdUser;
