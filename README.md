@@ -4,3 +4,5 @@
 
 ### Commands ###
 - regenerate Prisma schema: npx prisma generate
+- run the project: npm run dev
+- acceso a apollo server: http://host:port/graphql
