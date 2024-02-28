@@ -16,7 +16,6 @@ type Query {
 input TodoInput {
   title: String!
   description: String!
-  userId: ID!
   completed: Boolean!
 }
 
